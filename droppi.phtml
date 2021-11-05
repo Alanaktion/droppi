@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Droppi</title>
+    <link rel="stylesheet" href="droppi.css">
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('files').addEventListener('change', function () {
+                console.log(this.closest('files'));
+                this.closest('form').submit();
+            }, true);
+        })
+    </script>
+</head>
+<body>
+    <header>
+        <h1 class="sr-only">Droppi</h1>
+        <pre aria-hidden="true">▄▄▄▄▄▄  ▄▄▄▄▄▄   ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄ ▄▄▄
+█      ██   ▄  █ █       █       █       █   █
+█  ▄    █  █ █ █ █   ▄   █    ▄  █    ▄  █   █
+█ █ █   █   █▄▄█▄█  █ █  █   █▄█ █   █▄█ █   █
+█ █▄█   █    ▄▄  █  █▄█  █    ▄▄▄█    ▄▄▄█   █
+█       █   █  █ █       █   █   █   █   █   █
+█▄▄▄▄▄▄██▄▄▄█  █▄█▄▄▄▄▄▄▄█▄▄▄█   █▄▄▄█   █▄▄▄█</pre>
+    </header>
+
+    <?php if (!empty($errors)): ?>
+        <div class="errors">
+            <p>Upload failed:</p>
+            <ul>
+                <?php foreach ($errors as $file): ?>
+                    <li><?= htmlspecialchars($file) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($success)): ?>
+        <div>
+            <p>Upload finished:</p>
+            <ul>
+                <?php foreach ($success as $file): ?>
+                    <li><?= htmlspecialchars($file) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($allowed): ?>
+        <form action="." method="post" enctype="multipart/form-data">
+            <input class="sr-only" type="file" name="files[]" id="files" multiple>
+            <label for="files">
+                <span class="sr-only">Select files</span>
+                <pre aria-hidden="true">╔══════════════╗
+║ Select files ║
+╚══════════════╝</pre>
+            </label>
+            <button class="sr-only" type="submit">Upload</button>
+        </form>
+    <?php else: ?>
+        <div class="errors">
+            <p>You are not allowed to upload files.</p>
+        </div>
+    <?php endif; ?>
+
+    <footer>
+        don't be sus
+    </footer>
+</body>
+</html>
